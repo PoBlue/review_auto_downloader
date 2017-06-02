@@ -1,0 +1,5 @@
+from udacity_request import ReviewDownloader
+
+TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMTQ0MywiZXhwIjoxNDk4ODAzNjYxLCJ0b2tlbl90eXBlIjoiYXBpIn0.rgkc2vF6NGenHUk2DhY06eX1hQZIJ-pSdTRXEjC0IQQ'
+auto_downloader = ReviewDownloader(TOKEN)
+print(auto_downloader.get_project_url())
