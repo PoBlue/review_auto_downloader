@@ -6,6 +6,12 @@
 
 ![提醒图片](http://oqyjxfpox.bkt.clouddn.com/17-6-3/17826225.jpg)
 
+## 需要环境
+1. [安装 clint](https://github.com/kennethreitz/clint)
+2. [安装 terminal-notifier](https://github.com/julienXX/terminal-notifier)
+3. Python 3
+
+
 ## 使用
 
 ### 设置
