@@ -47,48 +47,62 @@ class ReviewRequest():
         return response.json()
 
 
+class ReviewData():
+    """
+    Class that handle review data
+    """
+    def __init__(self, data):
+        self.data = data
+
+    def get_project_url(self):
+        """
+        get download url from project
+        """
+        return self.data['archive_url']
+
+    def get_review_id(self):
+        """
+        get review id
+        """
+        return self.data['id']
+
+    def get_project_name(self):
+        """
+        get project name
+        """
+        return self.data['project']['name']
+
+
 class ReviewDownloader(ReviewRequest):
     """
     Class that auto download the project from assigned review
     """
     def __init__(self, token, src_path, project_path):
         ReviewRequest.__init__(self, token)
-        self.assigned_reviews = self.get_assigned_reviews()
         self.src_path = src_path
         self.project_path = project_path
+        self.init_assigned_reviews()
 
-    def re_start(self):
+    def init_assigned_reviews(self):
         """
-        reload the data
+        get assigned reviews
         """
-        self.assigned_reviews = self.get_assigned_reviews()
-
-    def get_project_url(self):
-        """
-        get download url from project
-        """
-        urls = []
-        for review in self.assigned_reviews:
-            urls.append(review['archive_url'])
-        return urls
-
-    def get_review_id(self):
-        """
-        get review id
-        """
-        ids = []
-        for review in self.assigned_reviews:
-            ids.append(review['id'])
-        return ids
+        self.assigned_reviews = []
+        for review in self.get_assigned_reviews():
+            self.assigned_reviews.append(ReviewData(review))
 
     def download_file(self):
         """
         download project file
         """
-        for project_url in self.get_project_url():
-            local_file_name = download_file(project_url)
+        for review in self.assigned_reviews:
+            local_file_name = download_file(review.get_project_url())
             self.move_download_file(local_file_name)
-            print("finished: {0}".format(project_url))
+            message = "ReviewId: {0}".format(review.get_review_id())
+            title = review.get_project_name()
+            subtitle = "File: {0}".format(local_file_name)
+            print(message)
+            notify(title, subtitle, message)
 
     def move_download_file(self, file_name):
         """
@@ -108,6 +122,9 @@ class ReviewDownloader(ReviewRequest):
         unzip_file_names = []
         unzip_file_names.append(unzip_file(src_file_path, self.src_path))
         unzip_file_names.append(unzip_file(project_file_path, self.project_path))
+
+        os.remove(src_file_path)
+        os.remove(project_file_path)
         return unzip_file_names
 
 

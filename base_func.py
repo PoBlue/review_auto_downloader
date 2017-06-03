@@ -36,7 +36,7 @@ def download_file(url):
     local_filename = url.split('/')[-1]
     while True:
         try:
-            print('restart')
+            print('start download')
             urllib.request.urlretrieve(url,
                                        filename=local_filename)
             break

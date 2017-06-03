@@ -4,6 +4,4 @@ TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMTQ0MywiZXhwIjoxND
 SRC_PATH = '/Users/blues/Desktop/origin_projects'
 PROJECT_PATH = '/Users/blues/Desktop/review-projects'
 auto_downloader = ReviewDownloader(TOKEN, SRC_PATH, PROJECT_PATH)
-print(auto_downloader.get_project_url())
-print(auto_downloader.get_review_id())
-print(auto_downloader.download_file())
+auto_downloader.download_file()
