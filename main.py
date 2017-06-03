@@ -117,6 +117,8 @@ class DownloaderInterface():
         if len(cmd) > 0:
             if cmd[0] == 'help':
                 print("""
+                    [start] to start project
+                    [show] to show the setting
                     [-token] to set token
                     [-src_path] to set src path
                     [-project_path] to set project paht
