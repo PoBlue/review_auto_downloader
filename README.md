@@ -1,5 +1,8 @@
 # review_auto_downloader
 
+以前: 打开 Review -> 点击下载项目 -> 等待 -> 解压移到相应文件夹，循环 n 次
+现在：设置 -> 命令，只需 1 次。
+
 ## 功能
 
 当获取到新的 Review 时，自动下载 Review 里的项目，并提醒
