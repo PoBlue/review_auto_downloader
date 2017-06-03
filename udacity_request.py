@@ -81,28 +81,36 @@ class ReviewDownloader(ReviewRequest):
         ReviewRequest.__init__(self, token)
         self.src_path = src_path
         self.project_path = project_path
-        self.init_assigned_reviews()
 
-    def init_assigned_reviews(self):
+    def get_reviews(self):
         """
         get assigned reviews
         """
-        self.assigned_reviews = []
+        assigned_reviews = []
         for review in self.get_assigned_reviews():
-            self.assigned_reviews.append(ReviewData(review))
+            assigned_reviews.append(ReviewData(review))
+        return assigned_reviews
 
-    def download_file(self):
+    def download_review(self, review):
         """
-        download project file
+        download project file with review data
         """
-        for review in self.assigned_reviews:
-            local_file_name = download_file(review.get_project_url())
-            self.move_download_file(local_file_name)
-            message = "ReviewId: {0}".format(review.get_review_id())
-            title = review.get_project_name()
-            subtitle = "File: {0}".format(local_file_name)
-            print(message)
-            notify(title, subtitle, message)
+        review_id = review.get_review_id()
+        local_file_name = download_file(review.get_project_url())
+        unzip_file_name = self.move_download_file(local_file_name)
+        self.notify_review(review_id,
+                           review.get_project_name(),
+                           unzip_file_name)
+        print("finished download, url: " + review.get_project_url())
+
+    def notify_review(self, review_id, review_name, file_name):
+        """
+        notify with review message
+        """
+        message = "ReviewId: {0}".format(review_id)
+        title = review_name
+        subtitle = "File: {0}".format(file_name)
+        notify(title, subtitle, message)
 
     def move_download_file(self, file_name):
         """
@@ -119,12 +127,11 @@ class ReviewDownloader(ReviewRequest):
         move_file(current_file_path, src_file_path)
         copyfile(src_file_path, project_file_path)
 
-        unzip_file_names = []
-        unzip_file_names.append(unzip_file(src_file_path, self.src_path))
-        unzip_file_names.append(unzip_file(project_file_path, self.project_path))
+        unzip_file_name = unzip_file(src_file_path, self.src_path)
+        unzip_file_name = unzip_file(project_file_path, self.project_path)
 
         os.remove(src_file_path)
         os.remove(project_file_path)
-        return unzip_file_names
+        return unzip_file_name
 
 
