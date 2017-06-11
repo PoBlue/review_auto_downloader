@@ -66,6 +66,8 @@ class DownloaderInterface():
         download review
         """
         while True:
+            print(time.strftime("%d %H:%M:%S", time.gmtime()))
+            print("checking......")
             for review in self.downloader.get_reviews():
                 review_id = review.get_review_id()
                 if review_id not in self.downloaded_ids:
@@ -75,7 +77,6 @@ class DownloaderInterface():
                 else:
                     continue
             time.sleep(self.check_time)
-            print("checking......")
 
     def save_data(self):
         """
