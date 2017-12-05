@@ -33,7 +33,7 @@ def download_file(url):
     """
     download file with url
     """
-    local_filename = url.split('/')[-1]
+    local_filename = "review-archive.zip"
     while True:
         try:
             print('start download')

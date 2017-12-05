@@ -58,7 +58,7 @@ class ReviewData():
         """
         get download url from project
         """
-        return self.data['archive_url']
+        return self.data['zipfile']['url']
 
     def get_review_id(self):
         """

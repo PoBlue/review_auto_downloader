@@ -45,7 +45,7 @@ class DownloaderInterface():
         self.token = ''
         self.src_path = ''
         self.project_path = ''
-        self.check_time = 200
+        self.check_time = 4000
         self.data_file = 'data.pkl'
         self.store_data = StoreData(self.data_file)
         self.load_data()
