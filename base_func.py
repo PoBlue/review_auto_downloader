@@ -37,6 +37,10 @@ def download_file(url):
     while True:
         try:
             print('start download')
+            # 读取 Cookie
+            with open('cookie.txt', 'r') as myfile:
+                data = myfile.read()
+            print(data)
             urllib.request.urlretrieve(url,
                                        filename=local_filename)
             break

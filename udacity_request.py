@@ -58,7 +58,13 @@ class ReviewData():
         """
         get download url from project
         """
-        return self.data['zipfile']['url']
+        return self.data['archive_url']
+
+    def get_language(self):
+        """
+        get language 
+        """
+        return self.data['language']
 
     def get_review_id(self):
         """
