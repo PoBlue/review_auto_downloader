@@ -5,7 +5,21 @@ import os
 import zipfile
 import urllib.request
 import socket
+import requests
+from http.cookies import SimpleCookie
 socket.setdefaulttimeout(100)
+
+
+def convertCookie(cookieStr):
+    cookie = SimpleCookie()
+    cookie.load(cookieStr)
+
+    # Even though SimpleCookie is dictionary-like, it internally uses a Morsel object
+    # which is incompatible with requests. Manually construct a dictionary instead.
+    cookies = {}
+    for key, morsel in cookie.items():
+        cookies[key] = morsel.value
+    return cookies
 
 
 def move_file(from_path, to_path):
@@ -39,10 +53,11 @@ def download_file(url):
             print('start download')
             # 读取 Cookie
             with open('cookie.txt', 'r') as myfile:
-                data = myfile.read()
-            print(data)
-            urllib.request.urlretrieve(url,
-                                       filename=local_filename)
+                cookie_data = myfile.read()
+            
+            cookie = convertCookie(cookie_data)
+            file_r = requests.get(url, cookies=cookie)
+            open(local_filename, 'wb').write(file_r.content)
             break
         except Exception as error:
             print("timeout and restart, can not download {0}, Error: {1}"
