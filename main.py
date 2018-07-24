@@ -60,6 +60,18 @@ class DownloaderInterface():
             self.download()
         else:
             print('please set token/src_path/project_path')
+    
+    def mail_notify(self):
+        """
+        notify using mail
+        """
+        if self.token != '' and self.src_path != '' and self.project_path != '':
+            self.downloader = ReviewDownloader(
+                self.token, self.src_path, self.project_path)
+            print('hello')
+        else:
+            print('please set token/src_path/project_path')
+
 
     def download(self):
         """
@@ -118,7 +130,8 @@ class DownloaderInterface():
         if len(cmd) > 0:
             if cmd[0] == 'help':
                 print("""
-                    [start] to start project
+                    [start] to start review project
+                    [mail] to start notify with mail
                     [show] to show the setting
                     [-token] to set token
                     [-src_path] to set src path
@@ -130,6 +143,8 @@ class DownloaderInterface():
                               self.src_path,
                               self.project_path,
                               self.downloaded_ids))
+            if cmd[0] == 'mail':
+                self.mail_notify()
             if cmd[0] == 'start':
                 self.start()
         self.save_data()
