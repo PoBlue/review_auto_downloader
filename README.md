@@ -18,15 +18,21 @@
 ## 使用
 
 ### 设置
-设置 Review 的 token, 【你的 Token】换为 Reviewer 的 Token
+1. 设置 Review 的 token, 【你的 Token】换为 Reviewer 的 Token
 ```
 python main.py -token [你的 Token]
 ```
 
-设置项目的存储位置，需弄两个, 一个 src path，一个 project_path
+2. 设置项目的存储位置，需弄两个, 一个 src path，一个 project_path
 ```
 python main.py -src_path /path/to/dir
 python main.py -project_path /path/to/dir
+```
+
+3. 打开 Chrome, 观察并复制下载项目文件时的 **Cookie**
+4. 然后新建一个文件 `cookie.txt`, 复制 **Cookie** 进去
+```
+#cookie
 ```
 
 ### 开始
