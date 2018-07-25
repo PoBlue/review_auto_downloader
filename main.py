@@ -2,6 +2,8 @@ import pickle
 import time
 from clint.arguments import Args
 from udacity_request import ReviewDownloader
+import data
+from mail import send_mail
 
 args = Args()
 
@@ -65,12 +67,23 @@ class DownloaderInterface():
         """
         notify using mail
         """
-        if self.token != '' and self.src_path != '' and self.project_path != '':
-            self.downloader = ReviewDownloader(
-                self.token, self.src_path, self.project_path)
-            print('hello')
+        if self.token != '':
+            self.downloader = ReviewDownloader(self.token, "no path", "no path")
+            while True:
+                print(time.strftime("%d %H:%M:%S", time.gmtime()))
+                print("checking......")
+                for review in self.downloader.get_reviews():
+                    review_id = review.get_review_id()
+                    if review_id not in self.downloaded_ids:
+                        mail_msg = data.message_template.format(name=review.get_project_name(), price=review.get_project_price())
+                        send_mail(mail_msg)
+                        self.downloaded_ids.append(review_id)
+                        self.save_data()
+                    else:
+                        continue
+                time.sleep(self.check_time)
         else:
-            print('please set token/src_path/project_path')
+            print('please set token')
 
 
     def download(self):

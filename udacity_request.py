@@ -78,6 +78,12 @@ class ReviewData():
         """
         return self.data['project']['name']
 
+    def get_project_price(self):
+        """
+        get project price
+        """
+        return self.data['price']
+
 
 class ReviewDownloader(ReviewRequest):
     """

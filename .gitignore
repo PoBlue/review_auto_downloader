@@ -3,3 +3,4 @@
 .vscode/
 *.pkl
 cookie.txt
+data.py
