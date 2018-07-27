@@ -51,7 +51,7 @@ gun_url = gun_base_url + "/messages"
 
 
 3. 设置 Review 的 token, 【你的 Token】换为 Reviewer 的 Token
-4. 浏览器打开 [token 链接](https://review-api.udacity.com/api/v1/me/api_token.json) (需要是登陆了 reviewer 账号的浏览器)
+4. 浏览器打开 [token 链接](https://review-api.udacity.com/api/v1/me/api_token.json) (需要是登陆了 reviewer 账号的浏览器), 返回的 json 就有你的 Reviewer Token 值了，填到下面
 ```
 python main.py -token [你的 Token]
 ```
