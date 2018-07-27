@@ -14,8 +14,51 @@
 2. [安装 terminal-notifier](https://github.com/julienXX/terminal-notifier)
 3. Python 3
 
+## 第0步: 安装依赖库
+```
+pip install -r requirements.txt
+```
 
-## 使用
+## 用法1: Review 邮件通知
+使用 Mail Gun 进行邮件通知, 不使用 QQ Mail, Gmail 的详细原因[参考这里](https://github.com/PoBlue/small_script/tree/master/python-gmail)
+
+1. 在该项目中新建文件 `data.py`, 复制粘贴下面的信息
+2. 打开 [MailGun domains](https://app.mailgun.com/app/domains)，根据图片所示，填写下面内容
+```
+# api key
+mail_gun_api = "填写 API"
+
+# domain
+mail_domain = "填写domain"
+
+# 接收邮件的地址
+to_mail = "xxxxx@gmail.com"
+
+# 邮件的主题
+subject = "Review Robot"
+
+# 邮件内容模板
+message_template = "Hello! You have a review: {name},Price is {price} d ,language is chinese"
+
+# mail gun 提供的 api url
+gun_base_url = "填写api base url"
+
+# 不用改
+gun_url = gun_base_url + "/messages"
+```
+
+<img width="1080" alt="示意图" src="https://user-images.githubusercontent.com/9304701/43195338-61b94c82-9037-11e8-885f-a9bec7a97154.png">
+
+
+3. 设置 Review 的 token, 【你的 Token】换为 Reviewer 的 Token
+4. 浏览器打开 [token 链接](https://review-api.udacity.com/api/v1/me/api_token.json) (需要是登陆了 reviewer 账号的浏览器)
+```
+python main.py -token [你的 Token]
+```
+
+5. 终端上输入命令 `python main.py mail`. 就行了～
+
+## 用法2: 本地自动下载项目
 
 ### 设置
 1. 设置 Review 的 token, 【你的 Token】换为 Reviewer 的 Token
