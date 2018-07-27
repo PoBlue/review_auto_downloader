@@ -56,7 +56,7 @@ gun_url = gun_base_url + "/messages"
 python main.py -token [你的 Token]
 ```
 
-5. 终端上输入命令 `python main.py mail`. 就行了～
+5. 终端上输入命令 `python main.py mail`. 就完事了;)
 
 ## 用法2: 本地自动下载项目
 
