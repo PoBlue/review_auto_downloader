@@ -57,6 +57,12 @@ def download_file(url):
             
             cookie = convertCookie(cookie_data)
             file_r = requests.get(url, cookies=cookie)
+
+            if file_r.status_code != 200:
+                print("Error: can not get file from url")
+                print(file_r.content)
+                print("-"*8)
+
             open(local_filename, 'wb').write(file_r.content)
             break
         except Exception as error:
@@ -74,3 +80,10 @@ def notify(title, subtitle, message):
     m = '-message {!r}'.format(message)
     sound = '-sound default'
     os.system('terminal-notifier {}'.format(' '.join([m, t, s, sound])))
+
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
