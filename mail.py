@@ -26,5 +26,19 @@ def send_mail(message):
     print(responce)
     print("send sucessfully")
 
+
+def send_of_mail(note, task_name):
+    """
+    发送邮件去 OmniFocus
+    """
+    print("sending mail")
+    responce = send_simple_message(task_name, note
+                            , data.mail_domain, data.of_mail
+                            ,data.gun_url, data.mail_gun_api)
+
+    print(responce)
+    print("send sucessfully")
+
+
 if __name__ == '__main__':
-    send_mail("hello,world")
+    send_of_mail("test", "test some")

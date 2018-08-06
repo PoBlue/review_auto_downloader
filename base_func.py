@@ -6,6 +6,7 @@ import zipfile
 import urllib.request
 import socket
 import requests
+from mail import send_of_mail
 from http.cookies import SimpleCookie
 socket.setdefaulttimeout(100)
 
@@ -41,6 +42,30 @@ def unzip_file(file_path, extract_path):
             z.extract(name, extract_path)
         z.close()
     return file_name
+
+
+def mailToOmniFocus(review_id, review_name, price, review_link, file_name):
+    """
+    添加到of上
+    """
+    #弄好信息
+    note = """
+--------------------------
+    {review_name}
+    - [Price] {price} 刀
+--------------------------
+    - [File]  {file_name}
+    - [Link] {review_link}
+--------------------------
+    - [ID] {review_id}
+--------------------------
+    """.format(review_name=review_name, price=price, file_name=file_name, 
+                review_link=review_link, review_id=review_id)
+    
+    task_name = "【Review】 {name}".format(name=review_name)
+    #发送邮件到 of。名字为 reivew name
+    send_of_mail(note, task_name)
+    return None
 
 
 def download_file(url):
@@ -83,6 +108,7 @@ def notify(title, subtitle, message):
 
 
 def main():
+    mailToOmniFocus("21", "test", "20", "http://test", "test/")
     pass
 
 if __name__ == '__main__':

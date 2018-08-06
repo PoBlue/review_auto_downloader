@@ -5,7 +5,7 @@ review counter
 import os
 from shutil import copyfile
 import requests
-from base_func import move_file, unzip_file, download_file, notify
+from base_func import move_file, unzip_file, download_file, notify, mailToOmniFocus
 
 
 class ReviewRequest():
@@ -113,7 +113,17 @@ class ReviewDownloader(ReviewRequest):
         self.notify_review(review_id,
                            review.get_project_name(),
                            unzip_file_name)
+            
+        # 通知 of 
+        review_link = "https://review.udacity.com/#!/submissions/{id}".format(id=review_id)
+        mailToOmniFocus(review_id, 
+                        review.get_project_name(), 
+                        review.get_project_price(),
+                        review_link,
+                        unzip_file_name)
+
         print("finished download, url: " + review.get_project_url())
+        print("-"*8)
 
     def notify_review(self, review_id, review_name, file_name):
         """
